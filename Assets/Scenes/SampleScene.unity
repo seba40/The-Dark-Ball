@@ -175,6 +175,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   thrust: 5
+  maxJumps: 1
+  jumpsLeft: 1
 --- !u!58 &336037458
 CircleCollider2D:
   m_ObjectHideFlags: 0
