@@ -26,14 +26,4 @@ public class PlayerMovement : MonoBehaviour
             remainingJumps--; // -- decreases the amount of jumps so the player doesn't jump an infinite amount of times
         }
     }
-
-    void OnCollisionEnter2D(Collision2D collision) // function to detect when object enters in collision with ground
-    {
-        if (collision.gameObject.tag == "ground")
-        {
-            remainingJumps = maxJumps; // if the player is grounded the remaningJumps variable is equal to the maxJum
-        }
-    }
-
-
 }
