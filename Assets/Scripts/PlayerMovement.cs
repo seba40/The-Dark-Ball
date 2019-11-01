@@ -6,13 +6,13 @@ public class PlayerMovement : MonoBehaviour
     public float thrust; // the force of the jump
     private float moveInput; // detects left or right key when pressed
     private  Rigidbody2D ballRigidBody; // variable for rigid body (private to only access it from the script)
-    private bool grounded; // ground variable changes from true or false when object enters or exits collision with the ground
     public float maxJumps; // variable for the maximum number of jumps allowed
-    private float remainingJumps = 2; // variable for the number of jumps remaning
+    public float remainingJumps; // variable for the number of jumps remaning
     
     void Start()
     {
         ballRigidBody = GetComponent<Rigidbody2D>(); // access rigid body from script
+        remainingJumps = maxJumps;
     }
 
     void Update()
@@ -31,18 +31,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "ground")
         {
-            grounded = true;
             remainingJumps = maxJumps; // if the player is grounded the remaningJumps variable is equal to the maxJum
-           
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision) // function to detect when object exits collision with ground
-    {
-        if (collision.gameObject.tag == "ground")
-        {
-            grounded = false;
-        }
-    }
-    
+
 }
