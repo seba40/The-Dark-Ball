@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour
     private float moveInput; // detects left or right key when pressed
     private  Rigidbody2D ballRigidBody; // variable for rigid body (private to only access it from the script)
     public float maxJumps; // variable for the maximum number of jumps allowed
-    public float remainingJumps; // variable for the number of jumps remaning
+    private float remainingJumps; // variable for the number of jumps remaning
+
     
     void Start()
     {
@@ -26,4 +27,12 @@ public class PlayerMovement : MonoBehaviour
             remainingJumps--; // -- decreases the amount of jumps so the player doesn't jump an infinite amount of times
         }
     }
-}
+    private void OnCollisionEnter2D(Collision2D collision) // function to detect when object enters in collision with ground
+    {
+        if (collision.gameObject.tag == "ground")
+        {
+            remainingJumps = maxJumps; // if the player is grounded the remaningJumps variable is equal to the maxJum
+        }
+    }     
+    }
+    
