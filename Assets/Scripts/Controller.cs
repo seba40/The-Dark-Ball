@@ -6,7 +6,6 @@ public class Controller : MonoBehaviour
     private bool death = false;
     public void YouDied() 
     {
-
         if(death == false) // Checks if the player has died or not
         {
             death = true;
@@ -18,6 +17,5 @@ public class Controller : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reloads the active scenen
     }
-  
 }
 
