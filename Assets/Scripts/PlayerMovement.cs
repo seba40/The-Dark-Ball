@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float remainingJumps; // variable for the number of jumps remaning
     public int playerHealth = 100;
     private int environmentDamage = 50;
-    private int fallDamage = 999;
+    private int lethalDamage = 999;
     
     void Start()
     {
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (ballRigidBody.position.y < -20f)
         {
-            playerHealth -= fallDamage;
+            playerHealth -= lethalDamage;
             FindObjectOfType<Controller>().YouDied();
         }
         // if the y position is < or = to -10 the death variable in gamemanager script becomes true and the player dies and the game restarts
@@ -52,7 +52,18 @@ public class PlayerMovement : MonoBehaviour
                 thrust = 0;
                 FindObjectOfType<Controller>().YouDied();
             }
-        }      
+        } 
+        if(collision.gameObject.tag == "Lethal")
+        {
+            playerHealth -= lethalDamage;
+            if(playerHealth <= 0)
+            {
+                speed = 0;
+                thrust = 0;
+                FindObjectOfType<Controller>().YouDied();
+            }
+
+        }
     }     
     }
     
