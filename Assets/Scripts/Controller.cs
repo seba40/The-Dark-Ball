@@ -17,5 +17,13 @@ public class Controller : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reloads the active scenen
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag =="Point")
+        {
+            Debug.Log("point collected");
+            Destroy(gameObject);
+        }
+    }
 }
 
