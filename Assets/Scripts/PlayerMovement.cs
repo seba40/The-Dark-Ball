@@ -64,16 +64,10 @@ public class PlayerMovement : MonoBehaviour
             thrust = 0;
             StartCoroutine(OnDeath(3));
         }
-}     
-
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-
+}
+    private void OnTriggerEnter2D(Collider2D other) // detects when the player collides with the coins
     {
         if (other.tag == "Point")
-        {
-            Debug.Log("point collected");
             Destroy(other.gameObject);
-        }
     }
 }
