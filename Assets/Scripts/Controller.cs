@@ -3,20 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
-    private bool death = false;
-    public void YouDied() 
-    {
-        if(death == false) // Checks if the player has died or not
-        {
-            death = true;
-            Debug.Log("You Died");
-            Invoke("Reload", 3); // calls Reload function after a certain amount of time
-        }
-    }
-    private void Reload()
+    public void Reload()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reloads the active scenen
     }
+<<<<<<< HEAD
    
+=======
+>>>>>>> 8a6740c19af57758a766a1fc0d37aef706c98071
 }
 
