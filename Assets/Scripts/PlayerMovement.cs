@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     {
         ballRigidBody = GetComponent<Rigidbody2D>(); // access rigid body from script
         remainingJumps = maxJumps;
+
     }
 
     void Update()
@@ -35,6 +36,9 @@ public class PlayerMovement : MonoBehaviour
             playerHealth -= lethalDamage;
             StartCoroutine(OnDeath(3));
         }
+        if (playerHealth > 100)
+            playerHealth = 100;
+
         // if the y position is < or = to -10 the death variable in gamemanager script becomes true and the player dies and the game restarts
 
     }
@@ -69,6 +73,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.tag == "Point")
             PointCounter.pointCount += 1;
+            playerHealth += 50;
             Destroy(other.gameObject);
+
     }
 }
