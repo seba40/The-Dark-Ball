@@ -68,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) // detects when the player collides with the coins
     {
         if (other.tag == "Point")
+            PointCounter.pointCount += 1;
             Destroy(other.gameObject);
     }
 }
