@@ -613,7 +613,7 @@ MonoBehaviour:
   thrust: 5
   maxJumps: 2
   playerHealth: 100
-  secondsUntilRespawn: 0
+  secondsUntilRespawn: 1
   pointCounter: {fileID: 1374075797}
 --- !u!58 &336037458
 CircleCollider2D:
@@ -1488,7 +1488,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -140.66382, y: 0.13696289}
+  m_AnchoredPosition: {x: -140.66357, y: 0.13696289}
   m_SizeDelta: {x: 3256.47, y: 267.37}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &685921529
