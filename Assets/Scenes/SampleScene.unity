@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 336037457}
   - component: {fileID: 336037456}
   m_Layer: 0
-  m_Name: player
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -613,6 +613,7 @@ MonoBehaviour:
   thrust: 5
   maxJumps: 2
   playerHealth: 100
+  secondsUntilRespawn: 1
 --- !u!58 &336037458
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -685,10 +686,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336037455}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.15, y: -1.32, z: 0}
+  m_LocalPosition: {x: -15.94, y: -0.8, z: 0}
   m_LocalScale: {x: 0.999792, y: 0.999792, z: 0.999792}
-  m_Children:
-  - {fileID: 519420032}
+  m_Children: [{fileID: 519420032}]
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -830,7 +830,7 @@ GameObject:
   m_Component:
   - component: {fileID: 503461236}
   m_Layer: 0
-  m_Name: Ground&Ceilling
+  m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -848,10 +848,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1687337952}
+  - {fileID: 2128180216}
   - {fileID: 581489664}
   - {fileID: 2132939002}
   - {fileID: 809968014}
-  - {fileID: 2128180216}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -865,7 +865,6 @@ GameObject:
   m_Component:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
-  - component: {fileID: 519420029}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -873,21 +872,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &519420029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29f2d9cdbe89ff94abb8ce0a6e041f1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  focus: {fileID: 336037460}
-  smoothSpeed: 5
-  offset: {x: 3.11, y: 1.4, z: -0.51}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -939,7 +923,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.43217, y: 1.5803287, z: -10.00208}
+  m_LocalPosition: {x: 6.74, y: 1.5803287, z: -10.00208}
   m_LocalScale: {x: 1.000208, y: 1.000208, z: 1.000208}
   m_Children: []
   m_Father: {fileID: 336037460}
@@ -1118,7 +1102,7 @@ GameObject:
   - component: {fileID: 581489663}
   - component: {fileID: 581489662}
   m_Layer: 0
-  m_Name: ground
+  m_Name: Ground (3)
   m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1210,7 +1194,7 @@ Transform:
   m_LocalScale: {x: 15.726172, y: 6.6373386, z: 1}
   m_Children: []
   m_Father: {fileID: 503461236}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &583549674
 GameObject:
@@ -1681,7 +1665,7 @@ GameObject:
   - component: {fileID: 809968013}
   - component: {fileID: 809968012}
   m_Layer: 0
-  m_Name: ceilling
+  m_Name: Ceilling (2)
   m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1773,7 +1757,7 @@ Transform:
   m_LocalScale: {x: 11.094323, y: 6.6373386, z: 1}
   m_Children: []
   m_Father: {fileID: 503461236}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &812156269
 GameObject:
@@ -2644,7 +2628,7 @@ GameObject:
   - component: {fileID: 1687337951}
   - component: {fileID: 1687337950}
   m_Layer: 0
-  m_Name: ground (1)
+  m_Name: Ground (1)
   m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2748,7 +2732,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1689230361}
   m_Layer: 0
-  m_Name: Respawn
+  m_Name: Props
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3374,7 +3358,7 @@ GameObject:
   - component: {fileID: 2128180218}
   - component: {fileID: 2128180217}
   m_Layer: 0
-  m_Name: ground (2)
+  m_Name: Ground (2)
   m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3392,7 +3376,7 @@ Transform:
   m_LocalScale: {x: 16.80958, y: 6.6373386, z: 1}
   m_Children: []
   m_Father: {fileID: 503461236}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2128180217
 BoxCollider2D:
@@ -3480,7 +3464,7 @@ GameObject:
   - component: {fileID: 2132939001}
   - component: {fileID: 2132939000}
   m_Layer: 0
-  m_Name: ceilling
+  m_Name: Ceilling (1)
   m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3572,5 +3556,5 @@ Transform:
   m_LocalScale: {x: 154.23106, y: 6.6373386, z: 1}
   m_Children: []
   m_Father: {fileID: 503461236}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
