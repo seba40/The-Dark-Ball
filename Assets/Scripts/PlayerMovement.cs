@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     {
         ballRigidBody = GetComponent<Rigidbody2D>(); // access rigid body from script
         remainingJumps = maxJumps;
-
     }
 
     void Update()
@@ -36,12 +35,10 @@ public class PlayerMovement : MonoBehaviour
             playerHealth -= lethalDamage;
             StartCoroutine(OnDeath(3));
         }
-        if (playerHealth > 100)
-            playerHealth = 100;
-
-        // if the y position is < or = to -10 the death variable in gamemanager script becomes true and the player dies and the game restarts
-
+        if (playerHealth > 200)
+            playerHealth = 200;
     }
+
     IEnumerator OnDeath(float time)
     {
         yield return new WaitForSeconds(time);
@@ -53,15 +50,12 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "ground")
             remainingJumps = maxJumps; // if the player is grounded the remaningJumps variable is equal to the maxJumps            
         
-
         if (collision.gameObject.tag == "environment")
             playerHealth -= environmentDamage;
         
-
         if (collision.gameObject.tag == "Lethal")
             playerHealth -= lethalDamage;
     
-
         if (playerHealth <= 0)
         {
             speed = 0;
@@ -75,6 +69,5 @@ public class PlayerMovement : MonoBehaviour
             PointCounter.pointCount += 1;
             playerHealth += 50;
             Destroy(other.gameObject);
-
     }
 }
