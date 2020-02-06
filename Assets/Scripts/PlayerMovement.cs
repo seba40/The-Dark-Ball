@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private int environmentDamage = 50;
     private int lethalDamage = 999;
     public float secondsUntilRespawn;
+    public PointCounter pointCounter;
 
     void Start()
     {
@@ -51,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) // function to detect when object enters in collision with ground
     {
-
         switch (collision.gameObject.tag)
         {
             case "ground":
@@ -76,8 +76,10 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) // detects when the player collides with other triggers
     {
         if (other.tag == "Point")
-            PointCounter.pointCount += 1;
+        {
+            pointCounter.pointCount += 1;
             playerHealth += 50;
             Destroy(other.gameObject);
+        }
     }
 }

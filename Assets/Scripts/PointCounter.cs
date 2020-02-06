@@ -3,14 +3,15 @@ using UnityEngine.UI;
 
 public class PointCounter : MonoBehaviour
 {
-    public static int pointCount=0;
-    Text text;
+    [HideInInspector]
+    public int pointCount;
+    public Text text;
+
     void Start()
     {
-        text = GetComponent<Text>();
+        pointCount = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         text.text = pointCount.ToString();
