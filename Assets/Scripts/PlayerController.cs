@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float maxJumps; // maximum number of jumps allowed
     public float speed; // ball speed
@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public int playerHealth = 100;
     public float secondsUntilRespawn;
     public PointCounter pointCounter;
+    public int flashNumber;
+    public ParticleSystem damageParticles;
 
     private float moveInput; // horizontal axis value for input
     private Rigidbody2D ballRigidBody; // rigid body (private to only access it from the script) for the player ball
@@ -16,11 +18,14 @@ public class PlayerMovement : MonoBehaviour
     private float remainingJumps; // number of jumps remaning
     private int environmentDamage = 50;
     private int lethalDamage = 999;
-    private bool isFacingRight = true; 
+    private bool isFacingRight = true;
+    private IEnumerator damageEffectsLoop;
+
 
 
     void Start()
     {
+        damageEffectsLoop = DamageEffects(flashNumber);
         ballRigidBody = GetComponent<Rigidbody2D>(); // access rigid body from script
         ballTransform = GetComponent<Transform>(); // access Transform component of the player
         remainingJumps = maxJumps; // initialize the remaining jumps
@@ -54,6 +59,21 @@ public class PlayerMovement : MonoBehaviour
         FindObjectOfType<Controller>().Reload();
     }
 
+    IEnumerator DamageEffects(int flashNumber)
+    {
+        damageParticles.Play();
+        for (int i=1; i<=flashNumber; i++)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
+
+            yield return new WaitForSeconds(0.1f);
+
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+
+            yield return new WaitForSeconds(0.15f);
+        }
+
+    }
     private void OnCollisionEnter2D(Collision2D collision) // function to detect when object enters in collision with ground
     {
         switch (collision.gameObject.tag)
@@ -62,9 +82,13 @@ public class PlayerMovement : MonoBehaviour
                 remainingJumps = maxJumps; // if the player is grounded the remaningJumps variable is equal to the maxJumps   
                 break;
             case "environment":
+                StopCoroutine(damageEffectsLoop);
+                StartCoroutine(damageEffectsLoop);
                 playerHealth -= environmentDamage;
                 break;
             case "Lethal":
+                StopCoroutine(damageEffectsLoop);
+                StartCoroutine(damageEffectsLoop);
                 playerHealth -= lethalDamage;
                 break;
         }
