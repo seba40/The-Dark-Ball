@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public PointCounter pointCounter;
     public int flashNumber;
     public ParticleSystem damageParticles;
+    public GameObject retryButton;
 
     private float moveInput; // horizontal axis value for input
     private Rigidbody2D ballRigidBody; // rigid body (private to only access it from the script) for the player ball
@@ -56,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        FindObjectOfType<Controller>().Reload();
+        retryButton.GetComponent<Canvas>().enabled = true;
     }
 
     IEnumerator DamageEffects(int flashNumber)
