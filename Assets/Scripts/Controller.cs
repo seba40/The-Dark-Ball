@@ -7,6 +7,5 @@ public class Controller : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reloads the active scene
     }
-
 }
 
