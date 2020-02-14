@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
             isFacingRight = !isFacingRight;
         ballRigidBody.velocity = new Vector2(moveInput * speed, ballRigidBody.velocity.y); // adds force to the ball movement in order for the player to move,doesn't affect y axis
         ballTransform.localEulerAngles = new Vector3(ballTransform.localEulerAngles.x, isFacingRight == true ? 0 : 180, ballTransform.localEulerAngles.z);
+        // AddForce for dash(impulse)
 
         if (Input.GetKeyDown(KeyCode.Space) && remainingJumps > 0) // checks if jump key is pressed
         {
