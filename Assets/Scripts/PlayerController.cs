@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,8 +21,6 @@ public class PlayerController : MonoBehaviour
     private int lethalDamage = 999;
     private bool isFacingRight = true;
     private IEnumerator damageEffectsLoop;
-
-
 
     void Start()
     {
@@ -65,7 +62,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator DamageEffects(int flashNumber)
     {
         damageParticles.Play();
-        for (int i=1; i<=flashNumber; i++)
+        for (int i = 1; i <= flashNumber; i++)
         {
             GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
 
