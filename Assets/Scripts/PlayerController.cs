@@ -4,16 +4,18 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     public float maxJumps; // maximum number of jumps allowed
-    public float speed; // ball speed
+    public float normalSpeed; // ball speed
     public float thrust; // the force of the jump
     public int playerHealth = 100;
     public float secondsUntilRespawn;
     public PointCounter pointCounter;
     public int flashNumber;
     public ParticleSystem damageParticles;
+    public ParticleSystem dashParticles;
     public GameObject retryButton;
     public float dashSpeed;
     public float timeBetweenDashes;
+    public float dashingTime;
 
     private float moveInput; // horizontal axis value for input
     private Rigidbody2D ballRigidBody; // rigid body (private to only access it from the script) for the player ball
@@ -22,18 +24,16 @@ public class PlayerController : MonoBehaviour
     private int environmentDamage = 50;
     private int lethalDamage = 999;
     private bool isFacingRight = true;
-    private IEnumerator damageEffectsLoop;
-    private bool canDash = true;
-    private IEnumerator dashTimerCoroutine;
-    
+    private bool canDash;
+    private float speed;
 
     void Start()
     {
-        damageEffectsLoop = DamageEffects(flashNumber);
-        dashTimerCoroutine = DashTimer(timeBetweenDashes);
+        speed = normalSpeed;
         ballRigidBody = GetComponent<Rigidbody2D>(); // access rigid body from script
         ballTransform = GetComponent<Transform>(); // access Transform component of the player
         remainingJumps = maxJumps; // initialize the remaining jumps
+        canDash = true;
 
     }
 
@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
             isFacingRight = !isFacingRight;
         ballRigidBody.velocity = new Vector2(moveInput * speed, ballRigidBody.velocity.y); // adds force to the ball movement in order for the player to move,doesn't affect y axis
         ballTransform.localEulerAngles = new Vector3(ballTransform.localEulerAngles.x, isFacingRight == true ? 0 : 180, ballTransform.localEulerAngles.z);
-        // AddForce for dash(impulse)
 
         if (Input.GetKeyDown(KeyCode.Space) && remainingJumps > 0) // checks if jump key is pressed
         {
@@ -56,12 +55,17 @@ public class PlayerController : MonoBehaviour
         // if the y position is < -20 or > 20  the death variable in gamemanager script becomes true and the player dies and the game restarts
         if (playerHealth > 200)
             playerHealth = 200;
-        if (Input.GetKeyDown(KeyCode.Z))
+    }
+
+    void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Z) && canDash)
         {
-            StartCoroutine(DashTimer(timeBetweenDashes));
-            ballRigidBody.velocity = new Vector2(0, ballRigidBody.velocity.y);
-            ballRigidBody.AddForce(new Vector2(moveInput, 0) * dashSpeed, ForceMode2D.Impulse);          
-        }   
+            StopCoroutine("Dash");
+            StartCoroutine("Dash");
+            StopCoroutine("DashTimer");
+            StartCoroutine("DashTimer");
+        }
     }
 
     IEnumerator OnDeath(float time)
@@ -71,7 +75,7 @@ public class PlayerController : MonoBehaviour
         retryButton.GetComponent<Canvas>().enabled = true;
     }
 
-    IEnumerator DamageEffects(int flashNumber)
+    IEnumerator DamageEffects()
     {
         damageParticles.Play();
         for (int i = 1; i <= flashNumber; i++)
@@ -87,12 +91,26 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    IEnumerator DashTimer(float timeBetweenDashes)
+    IEnumerator DashTimer()
     {
         canDash = false;
-        yield return new WaitForSeconds(timeBetweenDashes);
+        yield return new WaitForSecondsRealtime(timeBetweenDashes);
         canDash = true;
     }
+
+    IEnumerator Dash()
+    {
+        speed = dashSpeed;
+        if (ballRigidBody.velocity.x != 0)
+        {
+            GetComponent<Animator>().Play("Dash", -1, 0);
+            GetComponent<Animator>().Play("Dash");
+            dashParticles.Play();
+        }
+        yield return new WaitForSecondsRealtime(dashingTime);
+        speed = normalSpeed;
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision) // function to detect when object enters in collision with ground
     {
@@ -102,13 +120,13 @@ public class PlayerController : MonoBehaviour
                 remainingJumps = maxJumps; // if the player is grounded the remaningJumps variable is equal to the maxJumps   
                 break;
             case "environment":
-                StopCoroutine(damageEffectsLoop);
-                StartCoroutine(damageEffectsLoop);
+                StopCoroutine("DamageEffects");
+                StartCoroutine("DamageEffects");
                 playerHealth -= environmentDamage;
                 break;
             case "Lethal":
-                StopCoroutine(damageEffectsLoop);
-                StartCoroutine(damageEffectsLoop);
+                StopCoroutine("DamageEffects");
+                StartCoroutine("DamageEffects");
                 playerHealth -= lethalDamage;
                 break;
         }
