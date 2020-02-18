@@ -25126,6 +25126,16 @@ PrefabInstance:
       propertyPath: retryButton
       value: 
       objectReference: {fileID: 1788768052}
+    - target: {fileID: 6381908087402347563, guid: 2e621e7488644044f86eaab134ed61aa,
+        type: 3}
+      propertyPath: dashSpeed
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6381908087402347563, guid: 2e621e7488644044f86eaab134ed61aa,
+        type: 3}
+      propertyPath: timeBetweenDashes
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e621e7488644044f86eaab134ed61aa, type: 3}
 --- !u!1001 &6948573540171092934

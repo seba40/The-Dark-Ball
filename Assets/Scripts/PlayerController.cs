@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public int flashNumber;
     public ParticleSystem damageParticles;
     public GameObject retryButton;
+    public float dashSpeed;
+    public float timeBetweenDashes;
 
     private float moveInput; // horizontal axis value for input
     private Rigidbody2D ballRigidBody; // rigid body (private to only access it from the script) for the player ball
@@ -21,10 +23,14 @@ public class PlayerController : MonoBehaviour
     private int lethalDamage = 999;
     private bool isFacingRight = true;
     private IEnumerator damageEffectsLoop;
+    private bool canDash = true;
+    private IEnumerator dashTimerCoroutine;
+    
 
     void Start()
     {
         damageEffectsLoop = DamageEffects(flashNumber);
+        dashTimerCoroutine = DashTimer(timeBetweenDashes);
         ballRigidBody = GetComponent<Rigidbody2D>(); // access rigid body from script
         ballTransform = GetComponent<Transform>(); // access Transform component of the player
         remainingJumps = maxJumps; // initialize the remaining jumps
@@ -50,6 +56,12 @@ public class PlayerController : MonoBehaviour
         // if the y position is < -20 or > 20  the death variable in gamemanager script becomes true and the player dies and the game restarts
         if (playerHealth > 200)
             playerHealth = 200;
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            StartCoroutine(DashTimer(timeBetweenDashes));
+            ballRigidBody.velocity = new Vector2(0, ballRigidBody.velocity.y);
+            ballRigidBody.AddForce(new Vector2(moveInput, 0) * dashSpeed, ForceMode2D.Impulse);          
+        }   
     }
 
     IEnumerator OnDeath(float time)
@@ -74,6 +86,14 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    IEnumerator DashTimer(float timeBetweenDashes)
+    {
+        canDash = false;
+        yield return new WaitForSeconds(timeBetweenDashes);
+        canDash = true;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision) // function to detect when object enters in collision with ground
     {
         switch (collision.gameObject.tag)
@@ -97,6 +117,7 @@ public class PlayerController : MonoBehaviour
         {
             speed = 0;
             thrust = 0;
+            dashSpeed = 0;
             StartCoroutine(OnDeath(secondsUntilRespawn));
         }
     }
