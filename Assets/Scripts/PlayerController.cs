@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public float dashSpeed;
     public float timeBetweenDashes;
     public float dashingTime;
+    public AudioSource dashSound;
 
     private float moveInput; // horizontal axis value for input
     private Rigidbody2D ballRigidBody; // rigid body (private to only access it from the script) for the player ball
@@ -106,6 +107,7 @@ public class PlayerController : MonoBehaviour
             GetComponent<Animator>().Play("Dash", -1, 0);
             GetComponent<Animator>().Play("Dash");
             dashParticles.Play();
+            dashSound.Play();
         }
         yield return new WaitForSecondsRealtime(dashingTime);
         speed = normalSpeed;
